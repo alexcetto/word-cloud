@@ -13,33 +13,78 @@ code {
     monospace;
 }
 
-.weight1 {
-  font-size: .8em;
+.container {
+  min-width: 800px;
+  width: 90%;
+  margin: 0 auto;
 }
 
-.weight2{
-  font-size: .9em;
+h1 {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 1em;
+  text-align: center;
+  color: #FFFFF8;
+  background: #013859;
+  margin: 0;
+  margin-bottom: 1em;
 }
 
-.weight3{
-  font-size: 1em;
+#new-todo {
+  background: none;
+  border: 0;
+  color: inherit;
+  /* cursor: default; */
+  font: inherit;
+  line-height: normal;
+  overflow: visible;
+  padding: 5px;
+  box-sizing: border-box;
+  border: 1px solid #0f1e32;
+  width: 600px;
 }
 
-.weight4{
-  font-size: 1.2em;
+form > button {
+  background: none;
+  border: 0;
+  color: inherit;
+  /* cursor: default; */
+  font: inherit;
+  line-height: normal;
+  overflow: visible;
+  padding: 6px;
+  box-sizing: border-box;
+  background: #0f1e32;
+  color:white;
+  border-top-right-radius: 1em;
+  border-bottom-right-radius: 1em;
 }
 
-.weight5{
-  font-size: 1.3em;
+
+Wordlist {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+
 }
 
-.weight6{
-  font-size: 1.4em;
+ul> li {
+  list-style: none;
+  display: inline-block;
+  background: #EB3E4A;
+  padding: .5em;
+  border-radius: 1em;
+  color: #FFFFF8;
+  margin: 0px 1px 1px 0px;
 }
 
-.weight7{
-  font-size: 1.5em;
-}
-.weight8{
-  font-size: 1.6em;
+ul>li > button {
+  background: none;
+  border: 0;
+  color: inherit;
+  /* cursor: default; */
+  font: inherit;
+  line-height: normal;
+  overflow: visible;
+  padding: 0;
 }

@@ -55,20 +55,17 @@ class App extends Component {
   render() {
     return (
       <div>
-        <h3>Word Cloud</h3>
-        <form onSubmit={this.handleSubmit}>
-          <label htmlFor="new-todo">
-          Ajouter un nouveau mot
-          </label>
-          <input id="new-todo" onChange={this.handleChange} value={this.state.text}
-          />
-          <button>
-          Ajouter #{this.state.items.size + 1}
-          </button>
-        </form>
-        <WordList items={this.state.items} />
-        <button onClick={this.createCloud} value="Create cloud">Create Cloud</button>
-        {this.state.cloud? this.state.cloud: <div></div>}
+        <h1>Word Cloud</h1>
+        <div className="container">
+          <form onSubmit={this.handleSubmit}>
+            <label htmlFor="new-todo">Ajouter un nouveau mot</label> <br />
+            <input id="new-todo" onChange={this.handleChange} value={this.state.text} />
+            <button> Ajouter #{this.state.items.size + 1}</button>
+          </form>
+          <WordList items={this.state.items} />
+          <button onClick={this.createCloud} value="Create cloud">Create Cloud</button>
+          {this.state.cloud? this.state.cloud: <div></div>}
+        </div>
       </div>
       );
     }
