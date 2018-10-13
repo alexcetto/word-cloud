@@ -11,7 +11,6 @@ class WordList extends Component {
   displayWords(item, number) {
     return <li 
     key={item} 
-    className={"weight"+number}
     id={item}>
     {item}, {number} 
     <input className={item} type="button" onClick={this.decrease} value="-"></input>
