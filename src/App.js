@@ -18,6 +18,17 @@ class App extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.createCloud = this.createCloud.bind(this);
     this.handleOrderChange = this.handleOrderChange.bind(this);
+    this.reset = this.reset.bind(this);
+  }
+
+  componentDidMount() {
+    const data = localStorage.getItem('words');
+    if (data) {
+      this.state.items.importWords(data);
+    }
+    this.setState({
+      lol:"lol"
+    });
   }
   
   handleChange(e) {
@@ -34,6 +45,7 @@ class App extends Component {
     this.setState({
       text: ''
     });
+    localStorage.setItem("words", this.state.items.dumpList());
   }
 
   handleOrderChange(e) {
@@ -44,7 +56,7 @@ class App extends Component {
     }
     this.setState({
       order: !this.state.order
-    })
+    });
   }
 
   createCloud(event) {
@@ -55,11 +67,18 @@ class App extends Component {
       font={"sans-serif"}
     />})
   }
+
+  reset(event) {
+    this.setState({
+      items: new TagList()
+    });
+    localStorage.removeItem("words")
+  }
   
   render() {
     return (
       <div>
-        <h1>Word Cloud</h1>
+        <h1>Word Cloud</h1><button onClick={this.reset} value="Reset App">Reset App</button>
         <div className="container">
           <form onSubmit={this.handleSubmit}>
             <label htmlFor="new-todo">Ajouter un nouveau mot</label> <br />

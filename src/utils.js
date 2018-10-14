@@ -71,6 +71,14 @@ class TagList extends Component {
         }
     }
 
+    dumpList() {
+        return this.tagList.map(word => word.text);
+    }
+
+    importWords(arr) {
+        this.addWords(arr.split(","));
+    }
+
     removeWord(word) {
         const index = this.findWord(word);
         if (index !== -1) {
