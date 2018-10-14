@@ -1,18 +1,90 @@
+import { Component } from 'react';
 
-
-export function addToMap(myMap, myArray) {
-    for (let i=0; i < myArray.length; i++) {
-        const key = trimWords(myArray[i])
-        let previousValue = myMap.get(key);
-        if (previousValue === undefined) {
-            previousValue = 0;
+class TagList extends Component {
+    constructor(props) {
+        super(props);
+        this.tagList = [];
+        this.word = {
+            text: "travail",
+            value: 1,
+            timeCreated: Date.now()
         }
-        myMap.set(key, previousValue+1);
+        this.addWord("travail");
     }
-    return myMap;
+
+    trimWords(word) {
+        return String(word).replace(/^\s+|\s+$/g, '');
+    }
+
+    findWord(word) {
+        word = this.trimWords(word)
+        for (let i=0; i < this.tagList.length; i++) {
+            if (this.tagList[i].text === word) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    orderAlphabetically() {
+        this.tagList.sort((a,b) => {
+            return (a.text < b.text) ? -1: (a.text > b.text) ? 1: 0;
+        });
+    }
+
+    orderTemporally() {
+        this.tagList.sort((a,b) => {
+            return (a.timeCreated < b.timeCreated) ? -1: (a.timeCreated > b.timeCreated) ? 1: 0;
+        });
+    }
+
+    addWord(word) {
+        word = word.toLowerCase()
+        const index = this.findWord(word);
+        if (index === -1) {
+            this.word = {
+                text: word,
+                value: 1,
+                timeCreated: Date.now()
+            };
+            this.tagList.push(this.word);
+        } else {
+            this.tagList[index].value += 1;
+        }
+    }
+
+    addWords(wordsArray) {
+        for (let i=0; i < wordsArray.length; i++) {
+            this.addWord(wordsArray[i]);
+        }
+        return this.tagList;
+    }
+
+    decrementWord(word) {
+        const index = this.findWord(word);
+        if (index === -1) {
+            return;
+        }
+        this.tagList[index].value -= 1;
+        if (this.tagList[index].value === 0) {
+            this.removeWord(word);
+        }
+    }
+
+    removeWord(word) {
+        const index = this.findWord(word);
+        if (index !== -1) {
+            this.tagList.splice(index, 1);
+        }
+    }
+
+    clearList() {
+        this.tagList = [];
+    }
+
+    listLength() {
+        return this.tagList.length;
+    }
 }
 
-
-export const trimWords = (word) => {
-    return String(word).replace(/^\s+|\s+$/g, '');
-};
+export default TagList;

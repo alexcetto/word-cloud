@@ -2,17 +2,22 @@ import React, { Component } from 'react';
 import './App.css';
 import WordList from "./WordList";
 import WordCloud from 'react-d3-cloud';
-import * as utils from './utils';
+import TagList from './utils';
 
 class App extends Component {
   constructor(props) {
     super(props);
-    const m = new Map();
-    m.set("travail", 1)
-    this.state = { items: m, text: '', tagsDisplayed: [], cloud: null };
+    const m = new TagList();
+    this.state = { 
+      items: m, 
+      text: '', 
+      order: true, 
+      cloud: null 
+    };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.createCloud = this.createCloud.bind(this);
+    this.handleOrderChange = this.handleOrderChange.bind(this);
   }
   
   handleChange(e) {
@@ -25,28 +30,27 @@ class App extends Component {
       return;
     }
     const arr = this.state.text.split(" ");
+    this.state.items.addWords(arr);
     this.setState({
-      items: utils.addToMap(this.state.items, arr),
       text: ''
     });
   }
-  
-  addTags() {
-    const listOfThings = [];
-    for (var [key, value] of this.state.items) {
-      const obj = {text:key, value:value};
-      listOfThings.push(obj);
+
+  handleOrderChange(e) {
+    if (this.state.order) {
+      this.state.items.orderAlphabetically();
+    } else {
+      this.state.items.orderTemporally();
     }
     this.setState({
-      tagsDisplayed: listOfThings
-    });
+      order: !this.state.order
+    })
   }
 
   createCloud(event) {
     const fontSizeMapper = word => word.value * 15;
-    this.addTags()
     this.setState({cloud: <WordCloud
-      data={this.state.tagsDisplayed}
+      data={this.state.items.tagList}
       fontSizeMapper={fontSizeMapper}
       font={"sans-serif"}
     />})
@@ -60,8 +64,11 @@ class App extends Component {
           <form onSubmit={this.handleSubmit}>
             <label htmlFor="new-todo">Ajouter un nouveau mot</label> <br />
             <input id="new-todo" onChange={this.handleChange} value={this.state.text} />
-            <button> Ajouter #{this.state.items.size + 1}</button>
+            <button> Ajouter #{ this.state.items?this.state.items.listLength() + 1:0 }</button>
           </form>
+          <input type="button" 
+            onClick={this.handleOrderChange} 
+            defaultValue={this.state.order?"Ordre alphabetique":"Ordre temporel"} />
           <WordList items={this.state.items} />
           <button onClick={this.createCloud} value="Create cloud">Create Cloud</button>
           {this.state.cloud? this.state.cloud: <div></div>}

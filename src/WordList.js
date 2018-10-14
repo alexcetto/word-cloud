@@ -8,20 +8,21 @@ class WordList extends Component {
     this.increase = this.increase.bind(this);
   }
   
-  displayWords(item, number) {
+  displayWords(item) {
     return <li 
-    key={item} 
-    id={item}>
-    {item}, {number} 
-    <input className={item} type="button" onClick={this.decrease} value="-"></input>
-    <input className={item} type="button" onClick={this.increase} value="+"></input>
+      key={item.text} 
+      id={item.text}>
+        {item.text}, {item.value} 
+        <input className={item.text} type="button" onClick={this.decrease} value="-"></input>
+        <input className={item.text} type="button" onClick={this.increase} value="+"></input>
     </li>
   }
   
   displayList() {
     const list = [];
-    for (var [key, value] of this.props.items) {
-      list.push(this.displayWords(key, value))
+    for (let i=0; i < this.props.items.listLength(); i++) {
+      const item = this.props.items.tagList[i]
+      list.push(this.displayWords(item))
     }
     return list;
   }
@@ -31,7 +32,7 @@ class WordList extends Component {
     this.setState({
       lol:"lol"
     })
-    this.props.items.set(keyToAddress, this.props.items.get(keyToAddress)-1)
+    this.props.items.decrementWord(keyToAddress)
   }
   
   increase(key) {
@@ -39,7 +40,7 @@ class WordList extends Component {
       lol:"lol"
     })
     const keyToAddress = key.target.className
-    this.props.items.set(keyToAddress, this.props.items.get(keyToAddress)+1)
+    this.props.items.addWord(keyToAddress)
   }
   
   render() {

@@ -8,5 +8,6 @@
 - [ ] save somewhere to not lose everything
     - [ ] clear shit
 - [ ] enter words list instead of one at a time
+- [ ] order alphabetical or time
 
 ## Bugs
