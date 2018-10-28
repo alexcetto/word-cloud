@@ -12,9 +12,9 @@ class WordList extends Component {
     return <li 
       key={item.text} 
       id={item.text}>
-        {item.text}, {item.value} 
         <input className={item.text} type="button" onClick={this.decrease} value="-"></input>
         <input className={item.text} type="button" onClick={this.increase} value="+"></input>
+        {item.text}, {item.value} 
     </li>
   }
   
