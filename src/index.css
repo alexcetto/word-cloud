@@ -28,6 +28,13 @@ code {
   float: right;
   color:white;
 }
+#subHeader>input {
+  padding: 5px 5px;
+}
+
+#subHeader > * {
+  margin-left: 3px;
+}
 
 header {
   background: #0f1e32;

@@ -41,10 +41,8 @@ class App extends Component {
   makeid() {
     var text = "";
     var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-  
     for (var i = 0; i < 3; i++)
       text += possible.charAt(Math.floor(Math.random() * possible.length));
-  
     return text;
   }
 
@@ -111,10 +109,14 @@ class App extends Component {
   }
 
   createCloud(event) {
-    const fontSizeMapper = word => word.value * 15;
+    const fontSizeMapper = word => word.value *1.5 * 15;
+    const canvasSize = Math.log2(this.state.items.listLength()) *100;
+    console.log(canvasSize);
     this.setState({cloud: <WordCloud
       data={this.state.items.tagList}
       fontSizeMapper={fontSizeMapper}
+      width={canvasSize}
+      height={canvasSize}
       font={"sans-serif"}
     />})
     localStorage.setItem(this.state.sessionName, this.state.items.dumpList());
