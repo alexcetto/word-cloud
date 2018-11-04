@@ -74,6 +74,14 @@ class TagList extends Component {
         return this.tagList.map(word => word.text+"--"+word.value);
     }
 
+    exportList() {
+        let result = "";
+       this.tagList.map(word => { 
+            result += word.text + ";" + word.value + "\n"
+        });
+        return result;
+    }
+
     importWords(arr) {
         arr.split(",").map(w => {
             let wObj = w.split("--")

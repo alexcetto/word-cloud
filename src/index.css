@@ -28,12 +28,16 @@ code {
   float: right;
   color:white;
 }
-#subHeader>input {
-  padding: 5px 5px;
+
+#subHeader * {
+  margin-left: 3px;
 }
 
-#subHeader > * {
-  margin-left: 3px;
+#sessionName {
+  border-radius: 3px;
+  border:none;
+  margin: 4px;
+  padding: 5px 5px;
 }
 
 header {

@@ -3,6 +3,8 @@ import './App.css';
 import WordList from "./WordList";
 import WordCloud from 'react-d3-cloud';
 import TagList from './utils';
+import Downloader from './downloader';
+
 
 class App extends Component {
   constructor(props) {
@@ -66,6 +68,7 @@ class App extends Component {
       text: ''
     });
     localStorage.setItem(this.state.sessionName, this.state.items.dumpList());
+    console.log(this.state.items.exportList())
   }
 
   handleOrderChange(e) {
@@ -97,7 +100,7 @@ class App extends Component {
       // AND TODO: make the export
       console.log(lastSession)
       if (lastSession != null && e.target.value !== this.state.sessionName) {
-        this.state.items = new TagList();
+        this.state.items.clearList();
         this.state.items.importWords(lastSession);
       }
       
@@ -110,13 +113,13 @@ class App extends Component {
 
   createCloud(event) {
     const fontSizeMapper = word => word.value *1.5 * 15;
-    const canvasSize = Math.log2(this.state.items.listLength()) *100;
+    const canvasSize = Math.log2(this.state.items.listLength()) *150;
     console.log(canvasSize);
     this.setState({cloud: <WordCloud
       data={this.state.items.tagList}
       fontSizeMapper={fontSizeMapper}
-      width={canvasSize}
-      height={canvasSize}
+      width={700}
+      height={700}
       font={"sans-serif"}
     />})
     localStorage.setItem(this.state.sessionName, this.state.items.dumpList());
@@ -139,10 +142,13 @@ class App extends Component {
           <div id="subHeader">
             <label htmlFor="sessionName">Session</label>
             <input id="sessionName" onKeyDown={this.handleChangeSession} defaultValue={this.state.sessionName} />
-            <button onClick={this.reset} value="Reset App" className="red btn"><span>Effacer session actuelle</span></button>
+            <button onClick={this.reset} value="Reset App" className="red btn"  style={{float:"left"}}><span>Effacer cette session</span></button>
+            <Downloader  style={{float:"right"}}
+              data={this.state.items.exportList()} 
+              filename={this.state.sessionName} />
           </div>
-          
         </header>
+
         <h1>Word Cloud</h1>
         <div className="container">
           <form onSubmit={this.handleSubmit}>
@@ -152,10 +158,10 @@ class App extends Component {
           </form>
           <input type="checkbox" id="id-name--1" name="set-name" className="switch-input" onClick={this.handleOrderChange} />
 	        <label htmlFor="id-name--1" className="switch-label">
-            <span className={this.state.order?"toggle--on":"toggle--off"}>{this.state.order?"Alpha":"Date"}</span>
+            <span className={this.state.order?"toggle--on":"toggle--off"}>{!this.state.order?"Alpha":"Date"}</span>
           </label>
           <WordList items={this.state.items} />
-          <button onClick={this.createCloud} className="btn"><span>Créer leNuage</span></button>
+          <button onClick={this.createCloud} className="btn"><span>Créer le nuage</span></button>
           {this.state.cloud? this.state.cloud: <div></div>}
         </div>
       </div>
