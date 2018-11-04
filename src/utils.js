@@ -9,7 +9,6 @@ class TagList extends Component {
             value: 1,
             timeCreated: Date.now()
         }
-        this.addWord("travail");
     }
 
     trimWords(word) {

@@ -4,14 +4,17 @@
 
 - [x] hosting
 - [x] colors
-- [ ] columns for words
-- [ ] save somewhere to not lose everything
-    - [ ] clear shit
-- [ ] enter words list instead of one at a time
-- [ ] order alphabetical or time
+- [x] columns for words
+- [x] save somewhere to not lose everything
+    - [x] clear shit
+- [x] enter words list instead of one at a time
+- [x] order alphabetical or time
 - [ ] save word list
+- [ ] open new tab
+- [ ] offline
 
 ## Bugs
 
 columns wider
-cloud too wide when not enough words 
+cloud too wide when not enough words
+
