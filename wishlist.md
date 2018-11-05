@@ -9,12 +9,14 @@
     - [x] clear shit
 - [x] enter words list instead of one at a time
 - [x] order alphabetical or time
-- [ ] save word list
+- [x] save word list
 - [ ] open new tab
-- [ ] offline
+- [x] offline
+- [ ] enter with button
+- [ ] two clouds instead of one
+
+
 
 ## Bugs
 
-columns wider
-cloud too wide when not enough words
-
+- file encoding broken for excel OK
