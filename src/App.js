@@ -15,7 +15,8 @@ class App extends Component {
       text: '', 
       order: true, 
       cloud: null,
-      sessionName: ""
+      sessionName: "",
+      writing: ""
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -95,6 +96,9 @@ class App extends Component {
 
   handleChangeSession(e) {
     if (e.key === 'Enter') {
+      this.setState({
+        writing: "ok"
+      });
       const lastSession = this.checkSession(e.target.value);
       // TODO: If not equal we change the session name and we load the corresponding data
       // AND TODO: make the export
@@ -107,6 +111,16 @@ class App extends Component {
       this.setState({
         sessionName: e.target.value,
         items: this.state.items
+      });
+
+      setTimeout(()=>{
+        this.setState({
+          writing: ""
+        })
+      }, 3000);
+    } else {
+      this.setState({
+        writing: "nok"
       });
     }
   }
@@ -140,9 +154,13 @@ class App extends Component {
       <div>
         <header>
           <div id="subHeader">
-            <label htmlFor="sessionName">Session</label>
+            <label htmlFor="sessionName">Session 
+              {this.state.writing=="ok"?<span style={{"color":"green"}}>✓</span>:""}
+              {this.state.writing=="nok"?<span style={{"color":"red"}}>X</span>:""}
+            </label>
             <input id="sessionName" onKeyDown={this.handleChangeSession} defaultValue={this.state.sessionName} />
             <button onClick={this.reset} value="Reset App" className="red btn"  style={{float:"left"}}><span>Effacer cette session</span></button>
+            
             <Downloader  style={{float:"right"}}
               data={this.state.items.exportList()} 
               filename={this.state.sessionName} />
